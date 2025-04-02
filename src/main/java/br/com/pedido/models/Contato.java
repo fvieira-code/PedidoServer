@@ -1,6 +1,5 @@
 package br.com.pedido.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -36,7 +35,7 @@ public class Contato {
                     CascadeType.MERGE
             },
             mappedBy = "contatos")
-    @JsonIgnore
+    //@JsonIgnore
     private Set<Revenda> revendas = new HashSet<>();
 
     public Integer getId() {
