@@ -14,6 +14,7 @@ import java.util.Set;
 
 import static jakarta.persistence.CascadeType.ALL;
 
+@Data
 @Entity
 @Builder
 @AllArgsConstructor

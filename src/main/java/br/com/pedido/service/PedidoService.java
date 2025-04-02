@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,15 +18,26 @@ public class PedidoService {
     private PedidoRepository pedidoRepository;
 
     public List<Pedido> findAll(){
-        return pedidoRepository.findAll() ;
+        //List<Pedido> pedidos =  pedidoRepository.findAll() ;
+        List<Pedido> pedidos = new ArrayList<>();
+
+        for(Pedido pedido : pedidoRepository.findAll()){
+            pedido.setTotalGeralPedido(
+                    pedido.getPedido_produtos().stream().
+                            map(Pedido_Produto::getTotalProduto).
+                            reduce(BigDecimal.ZERO, BigDecimal::add)
+            );
+            pedidos.add(pedido);
+        }
+        return pedidos;
     }
 
     public Pedido pedidoFindById(Integer id) {
         Pedido pedido = pedidoRepository.findById(id).get();
 
-        pedido.getTotalGeralPedido().add(
+        pedido.setTotalGeralPedido(
                 pedido.getPedido_produtos().stream().
-                        map(Pedido_Produto::getValorProduto).
+                        map(Pedido_Produto::getTotalProduto).
                         reduce(BigDecimal.ZERO, BigDecimal::add)
         );
 
