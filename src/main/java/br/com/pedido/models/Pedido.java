@@ -21,7 +21,6 @@ import static jakarta.persistence.CascadeType.ALL;
 @Getter
 @Setter
 @Table(name = "tb_pedido")
-//@EqualsAndHashCode(callSuper = false)
 public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +34,6 @@ public class Pedido {
     @Column(name = "descricao_pedido")
     private String descricaoPedido;
     @Column(name = "total")
-    //private Double totalPedido;
     private BigDecimal totalPedido;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
@@ -45,6 +43,8 @@ public class Pedido {
 
     @OneToMany(orphanRemoval=true)
     @JoinColumn(name="id_pedido")
-    public Set<Pedido_Produto> pedido_produtos;
+    private Set<Pedido_Produto> pedido_produtos;
+
+    private BigDecimal totalGeralPedido;
 
 }

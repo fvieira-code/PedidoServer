@@ -33,7 +33,6 @@ public class Pedido_Produto {
     private Double quantidadeProduto;
 
     @Column(name = "valor_produto")
-    //private Double valorProduto;
     private BigDecimal valorProduto;
 
     @Column(name = "total_produto")

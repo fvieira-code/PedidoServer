@@ -23,10 +23,10 @@ public class PedidoService {
     public Pedido pedidoFindById(Integer id) {
         Pedido pedido = pedidoRepository.findById(id).get();
 
-        pedido.getTotalPedido().add(
-        pedido.getPedido_produtos().stream().
-                map(Pedido_Produto::getValorProduto).
-                reduce(BigDecimal.ZERO, BigDecimal::add)
+        pedido.getTotalGeralPedido().add(
+                pedido.getPedido_produtos().stream().
+                        map(Pedido_Produto::getValorProduto).
+                        reduce(BigDecimal.ZERO, BigDecimal::add)
         );
 
         return pedido;

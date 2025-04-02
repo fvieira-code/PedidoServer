@@ -22,16 +22,6 @@ public class Item {
     @Column(name = "id_item")
     private Integer id;
 
-    //@ManyToOne
-    //@JoinColumn(name = "id_pedido")
-    //@Column(name = "id_pedido")
-    //Pedido pedido;
-
-    //@ManyToOne
-    //@JoinColumn(name = "id_produto")
-    //@Column(name = "id_produto")
-    //Produto produto;
-
     @Column(name = "quantidade_produto")
     private Double quantidadeProduto;
 
