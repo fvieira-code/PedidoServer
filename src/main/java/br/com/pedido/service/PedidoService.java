@@ -18,7 +18,6 @@ public class PedidoService {
     private PedidoRepository pedidoRepository;
 
     public List<Pedido> findAll(){
-        //List<Pedido> pedidos =  pedidoRepository.findAll() ;
         List<Pedido> pedidos = new ArrayList<>();
 
         for(Pedido pedido : pedidoRepository.findAll()){
