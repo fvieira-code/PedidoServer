@@ -56,13 +56,11 @@ public class Revenda {
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinTable(name = "tb_revenda_contato", joinColumns = {@JoinColumn(name = "id_revenda")}, inverseJoinColumns = {@JoinColumn(name = "id_contato")})
     @OrderBy(value = "id_contato")
-    //@NotBlank(message = "Contato obrigatório.")
     private Set<Contato> contatos = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinTable(name = "tb_revenda_endereco", joinColumns = {@JoinColumn(name = "id_revenda")}, inverseJoinColumns = {@JoinColumn(name = "id_endereco")})
     @OrderBy(value = "id_endereco")
-    //@NotBlank(message = "Endereço obrigatório.")
     private Set<Endereco> enderecos = new HashSet<>();
 
     public Revenda(String cnpj, String razaoSocial, String nomeFantasia, String emailRevenda) {
