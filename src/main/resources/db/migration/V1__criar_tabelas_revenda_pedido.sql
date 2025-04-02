@@ -4,9 +4,9 @@ CREATE TABLE tb_contato (
 	nome_contato varchar(500) NULL,
 	CONSTRAINT tb_contato_pk PRIMARY KEY (id_contato)
 );
-INSERT INTO revendapedidodb.tb_contato (nome, tipo)
+INSERT INTO revendapedidodb.tb_contato (nome_contato, tipo_contato)
 VALUES('MARIA CARDOSO SANTOS', 'PRIMARIO');
-INSERT INTO revendapedidodb.tb_contato (nome, tipo)
+INSERT INTO revendapedidodb.tb_contato (nome_contato, tipo_contato)
 VALUES('ALEXANDRE SILVA MEDEIROS', 'SECUNDARPIO');
 
 CREATE TABLE tb_endereco (
@@ -51,8 +51,8 @@ CREATE TABLE tb_revenda_contato(
 	id_contato INTEGER  NOT NULL,
 	CONSTRAINT tb_revenda_contato_pk PRIMARY KEY (id_revenda_contato, id_revenda, id_contato)
 );
-ALTER TABLE tb_revenda_contato ADD CONSTRAINTEGER tb_revenda_contato_tb_revenda_fk FOREIGN KEY (id_revenda) REFERENCES tb_revenda(id_revenda);
-ALTER TABLE tb_revenda_contato ADD CONSTRAINTEGER tb_revenda_contato_tb_contato_fk FOREIGN KEY (id_contato) REFERENCES tb_contato(id_contato);
+ALTER TABLE tb_revenda_contato ADD CONSTRAINT tb_revenda_contato_tb_revenda_fk FOREIGN KEY (id_revenda) REFERENCES tb_revenda(id_revenda);
+ALTER TABLE tb_revenda_contato ADD CONSTRAINT tb_revenda_contato_tb_contato_fk FOREIGN KEY (id_contato) REFERENCES tb_contato(id_contato);
 
 INSERT INTO revendapedidodb.tb_revenda_contato (id_contato, id_revenda)
 VALUES(1, 1);
@@ -65,8 +65,8 @@ CREATE TABLE tb_revenda_endereco(
 	id_endereco INTEGER  NOT NULL,
 	CONSTRAINT tb_revenda_endereco_pk PRIMARY KEY (id_revenda_endereco, id_revenda, id_endereco)
 );
-ALTER TABLE tb_revenda_endereco ADD CONSTRAINTEGER tb_revenda_endereco_tb_revenda_fk FOREIGN KEY (id_revenda) REFERENCES tb_revenda(id_revenda);
-ALTER TABLE tb_revenda_endereco ADD CONSTRAINTEGER tb_revenda_endereco_tb_endereco_fk FOREIGN KEY (id_endereco) REFERENCES tb_endereco(id_endereco);
+ALTER TABLE tb_revenda_endereco ADD CONSTRAINT tb_revenda_endereco_tb_revenda_fk FOREIGN KEY (id_revenda) REFERENCES tb_revenda(id_revenda);
+ALTER TABLE tb_revenda_endereco ADD CONSTRAINT tb_revenda_endereco_tb_endereco_fk FOREIGN KEY (id_endereco) REFERENCES tb_endereco(id_endereco);
 
 INSERT INTO revendapedidodb.tb_revenda_endereco (id_endereco, id_revenda)
 VALUES(1, 1);
@@ -77,8 +77,8 @@ CREATE TABLE tb_revenda_telefone(
 	id_telefone INTEGER  NOT NULL,
 	CONSTRAINT tb_revenda_telefone_pk PRIMARY KEY (id_revenda_telefone, id_revenda, id_telefone)
 );
-ALTER TABLE tb_revenda_telefone ADD CONSTRAINTEGER tb_revenda_telefone_tb_revenda_fk FOREIGN KEY (id_revenda) REFERENCES tb_revenda(id_revenda);
-ALTER TABLE tb_revenda_telefone ADD CONSTRAINTEGER tb_revenda_telefone_tb_endereco_fk FOREIGN KEY (id_telefone) REFERENCES tb_telefone(id_telefone);
+ALTER TABLE tb_revenda_telefone ADD CONSTRAINT tb_revenda_telefone_tb_revenda_fk FOREIGN KEY (id_revenda) REFERENCES tb_revenda(id_revenda);
+ALTER TABLE tb_revenda_telefone ADD CONSTRAINT tb_revenda_telefone_tb_endereco_fk FOREIGN KEY (id_telefone) REFERENCES tb_telefone(id_telefone);
 
 INSERT INTO revendapedidodb.tb_revenda_telefone (id_revenda, id_telefone)
 VALUES(1, 1);
@@ -101,9 +101,10 @@ VALUES('CPF', 'ALEXANDRE CARDOSO DE MELO', '23465798020', 'PESSOA_FISICA', 1);
 
 CREATE TABLE tb_pedido (
 	id_pedido INTEGER  AUTO_INCREMENT NOT NULL,
-	data_pedido data NOT NULL,
+	data_pedido date DEFAULT NULL,
 	situacao_pedido varchar(15) NULL,
 	descricao_pedido varchar(250) NULL,
+	total DECIMAL(15,4) NULL,
 	id_cliente INTEGER NOT NULL,
 	CONSTRAINT tb_pedido_pk PRIMARY KEY (id_pedido)
 );
@@ -111,12 +112,12 @@ ALTER TABLE tb_pedido ADD CONSTRAINT tb_pedido_tb_cliente_fk FOREIGN KEY (id_cli
 
 INSERT INTO revendapedidodb.tb_pedido (data_pedido, descricao_pedido, situacao_pedido, total, id_cliente)
 VALUES('2025-04-01', 'PEDIDO DE MATERIAL DE ESCRITORIO', 'ABERTO', 150.5, 1);
-INSERT INTO revendapedidodb.tb_pedido_produto (descricao_produto, quantidade_produto, total_produto, unidade_produto, valor_produto, id_pedido)
-VALUES('CANETA AZUL BIC', 10, 20, 'UN', 2, 1);
 
 CREATE TABLE tb_pedido_produto (
 	id_pedido_produto INTEGER  AUTO_INCREMENT NOT NULL,
 	id_pedido INTEGER  NOT NULL,
+	descricao_produto VARCHAR(250) NULL,
+	unidade_produto VARCHAR(5) NULL,
     quantidade_produto DECIMAL(15,4),
     valor_produto DECIMAL(15,4),
     total_produto DECIMAL(15,4),
